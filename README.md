@@ -1,19 +1,13 @@
 ﻿# SkillBridge AI
 
-An AI-powered career mentor helping students move from learning to earning.
+AI-powered platform that helps students discover learning paths, track skills, and build job-ready roadmaps.
 
-## Mission
+## Features
 
-Help students discover what to learn, in what order, and which projects to build for their target careers.
-
-## Planned Features
-
-- Career selection
-- Personalized AI learning roadmaps
-- Weekly learning plans
-- Progress tracking
-- Free learning resources
-- Career guidance
+- AI Career Roadmaps
+- Skill Tracking
+- Learning Resources
+- Progress Monitoring
 
 ## Tech Stack
 
@@ -23,14 +17,18 @@ Help students discover what to learn, in what order, and which projects to build
 - Gemini API
 - Vercel
 
-## Project Structure
+## Project Status
 
-- `frontend/` — User interface
-- `backend/` — Server-side functionality
-- `database/` — Database planning
-- `assets/` — Project assets
-- `docs/` — Project documentation
+Planning Phase
 
-## Status
+## Folder Structure
 
-Day 1: Project planning and repository setup.
+frontend/
+backend/
+database/
+docs/
+assets/
+
+## Author
+
+SUMAIR AHMED DERO

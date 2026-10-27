@@ -1,22 +1,7 @@
-﻿# Errors and Solutions
+﻿# Error
 
-Record actual errors and their verified solutions here.
+Problem:
+Git not recognized
 
-## Entry Template
-
-### Error Title
-**Date:**
-
-**Problem:**
-
-**Error Message:**
-
-**Root Cause:**
-
-**Solution:**
-
-**Verification:**
-
----
-
-No errors recorded yet.
+Solution:
+Installed Git and restarted terminal
