@@ -1,50 +1,9 @@
-
-@'
-# SkillBridge AI
-
-An AI-powered career mentoring platform that helps students move from learning to earning.
-
-## Vision
-
-Help students identify what to learn, in what order, and which projects to build to become career-ready.
-
-## Planned MVP
-
-- Career selection
-- Personalized AI learning roadmaps
-- Progress tracking
-- Free learning resource recommendations
-
-## Technology Stack
-
-- Frontend: Next.js and Tailwind CSS
-- Backend: Next.js API Routes
-- Database and Authentication: Supabase
-- AI: Gemini API
-- Deployment: Vercel
-
-## Project Structure
-
-- `frontend/` — User interface
-- `backend/` — API and server-side functionality
-- `database/` — Database planning and configuration
-- `assets/` — Project assets
-- `docs/` — Learning logs, decisions, errors, and resources
-
-## Status
-
-Day 1 — Project planning and repository setup.
-
-## Development
-
-This project is under active development. Features and architecture may evolve.
-'@ | Set-Content README.md -Encoding utf8
-
-@'
-# Dependencies and virtual environments
+﻿# Dependencies and virtual environments
 node_modules/
 .venv/
 venv/
+
+# Environment variables and secrets
 .env
 .env.*
 !.env.example
@@ -60,8 +19,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .eslintcache/
+*.tsbuildinfo
 
-# Local editor and operating system files
+# Editors and operating system
 .vscode/
 .idea/
 .DS_Store
@@ -70,6 +30,3 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
-'@ | Set-Content .gitignore -Encoding utf8
-
-Write-Host "README.md and .gitignore created." -ForegroundColor Green
