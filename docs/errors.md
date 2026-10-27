@@ -1,7 +1,9 @@
 ﻿# Error
 
-Problem:
+**Date:** 2023-10-26
+
+**Problem:**
 Git not recognized
 
-Solution:
+**Solution:**  
 Installed Git and restarted terminal
