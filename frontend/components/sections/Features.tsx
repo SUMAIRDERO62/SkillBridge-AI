@@ -1,172 +1,98 @@
 import { Icon } from "../ui/Icons";
 
-type Feature = {
-  title: string;
-  description: string;
-  icon: "brain" | "trending-up" | "code" | "compass";
-  label: string;
-  accent: string;
-  iconBackground: string;
-  glow: string;
-  visual: "roadmap" | "progress" | "projects" | "guidance";
+type ComparisonItem = {
+  problem: string;
+  solution: string;
+  problemDetail: string;
+  solutionDetail: string;
+  icon: "layers" | "brain" | "code" | "target" | "compass" | "trending-up";
 };
 
-const features: Feature[] = [
+const comparisons: ComparisonItem[] = [
   {
-    title: "AI Career Roadmaps",
-    description:
-      "Turn a big ambition into a clear, adaptive path with the next best step always in view.",
+    problem: "Random Tutorials",
+    solution: "Structured Roadmaps",
+    problemDetail: "You keep starting over without knowing what matters next.",
+    solutionDetail: "A focused path turns a big career goal into your next clear step.",
+    icon: "layers",
+  },
+  {
+    problem: "Information Overload",
+    solution: "Focused Learning",
+    problemDetail: "More tabs create more noise, not more confidence.",
+    solutionDetail: "Learn the skills that belong to your destination, in the right order.",
     icon: "brain",
-    label: "Find your direction",
-    accent: "text-violet-300",
-    iconBackground: "bg-violet-400/10 ring-violet-300/15",
-    glow: "bg-brand/15",
-    visual: "roadmap",
   },
   {
-    title: "Progress Tracking",
-    description:
-      "Build momentum with a simple view of your habits, milestones, streaks, and wins.",
-    icon: "trending-up",
-    label: "Make progress visible",
-    accent: "text-cyan-300",
-    iconBackground: "bg-cyan-400/10 ring-cyan-300/15",
-    glow: "bg-accent/15",
-    visual: "progress",
-  },
-  {
-    title: "Project-Based Learning",
-    description:
-      "Replace passive learning with real projects that turn your skills into proof of work.",
+    problem: "No Projects",
+    solution: "Portfolio Projects",
+    problemDetail: "Knowing concepts is not the same as proving what you can build.",
+    solutionDetail: "Turn learning into work you can show, explain, and share.",
     icon: "code",
-    label: "Build your portfolio",
-    accent: "text-amber-300",
-    iconBackground: "bg-amber-400/10 ring-amber-300/15",
-    glow: "bg-amber-400/10",
-    visual: "projects",
   },
   {
-    title: "Career Guidance",
-    description:
-      "Get thoughtful AI guidance, resources, and feedback tailored to where you are now.",
+    problem: "No Accountability",
+    solution: "Progress Tracking",
+    problemDetail: "Without visibility, small gaps quietly become stalled momentum.",
+    solutionDetail: "See your milestones, celebrate progress, and keep moving consistently.",
+    icon: "trending-up" as const,
+  },
+  {
+    problem: "No Career Plan",
+    solution: "Career Guidance",
+    problemDetail: "It is hard to know if today’s effort leads somewhere meaningful.",
+    solutionDetail: "AI guidance connects your skills and projects to job readiness.",
     icon: "compass",
-    label: "Move with confidence",
-    accent: "text-emerald-300",
-    iconBackground: "bg-emerald-400/10 ring-emerald-300/15",
-    glow: "bg-emerald-400/10",
-    visual: "guidance",
   },
 ];
 
-function FeatureVisual({ type }: { type: Feature["visual"] }) {
-  if (type === "roadmap") {
-    return (
-      <div className="relative flex h-16 items-center gap-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-brand shadow-[0_0_14px_#8B5CF6]" />
-        <span className="h-px w-8 bg-gradient-to-r from-brand to-violet-300" />
-        <span className="h-3.5 w-3.5 rounded-full border-2 border-violet-300 bg-slate-900 shadow-[0_0_14px_rgba(196,181,253,0.6)]" />
-        <span className="h-px w-8 bg-gradient-to-r from-violet-300 to-white/20" />
-        <span className="h-2.5 w-2.5 rounded-full border border-white/30 bg-slate-800" />
-        <span className="absolute left-1 top-9 text-[10px] font-medium text-violet-200">
-          Your next best step
-        </span>
-      </div>
-    );
-  }
-
-  if (type === "progress") {
-    return (
-      <div className="flex h-16 items-end gap-2">
-        {[35, 48, 42, 68, 58, 82, 72].map((height, index) => (
-          <span
-            className={`w-2.5 rounded-full transition-all duration-500 group-hover:scale-y-110 ${
-              index === 5
-                ? "bg-gradient-to-t from-accent to-cyan-200 shadow-[0_0_14px_rgba(6,182,212,0.45)]"
-                : "bg-cyan-400/20"
-            }`}
-            key={height}
-            style={{ height: `${height}%` }}
-          />
-        ))}
-        <span className="ml-2 mb-1 text-[10px] font-medium text-cyan-200">
-          +24%
-        </span>
-      </div>
-    );
-  }
-
-  if (type === "projects") {
-    return (
-      <div className="flex h-16 items-center gap-2">
-        <span className="flex h-9 w-12 items-center justify-center rounded-lg border border-amber-300/30 bg-amber-300/10 text-xs text-amber-200">
-          {"</>"}
-        </span>
-        <span className="h-px w-6 bg-gradient-to-r from-amber-300/60 to-white/20" />
-        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-emerald-300">
-          <Icon name="check" size={15} />
-        </span>
-        <span className="ml-1 text-[10px] font-medium text-amber-200">
-          Shipped
-        </span>
-      </div>
-    );
-  }
-
+function ComparisonRow({
+  item,
+  index,
+}: {
+  item: ComparisonItem;
+  index: number;
+}) {
   return (
-    <div className="flex h-16 items-center gap-3">
-      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300/30 bg-emerald-300/10 text-emerald-200 shadow-[0_0_18px_rgba(16,185,129,0.15)]">
-        <Icon name="sparkles" size={17} />
-      </span>
-      <div className="space-y-1.5">
-        <span className="block h-1.5 w-28 rounded-full bg-white/15" />
-        <span className="block h-1.5 w-20 rounded-full bg-emerald-300/30" />
-        <span className="block text-[10px] font-medium text-emerald-200">
-          Guidance, when you need it
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
-  return (
-    <article className="group relative isolate overflow-hidden rounded-2xl border border-white/[0.08] bg-surface/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16] hover:bg-surface/85 hover:shadow-2xl hover:shadow-black/20">
-      <div
-        className={`pointer-events-none absolute -right-16 -top-16 -z-10 h-40 w-40 rounded-full ${feature.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
-      />
-      <div className="flex items-start justify-between">
-        <span
-          className={`flex h-11 w-11 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3 ${feature.iconBackground} ${feature.accent}`}
-        >
-          <Icon name={feature.icon} size={21} />
-        </span>
-        <span className="font-mono text-[11px] text-white/20">
+    <div className="group relative grid gap-3 md:grid-cols-[1fr_auto_1fr] md:gap-0">
+      <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 transition-all duration-300 group-hover:border-rose-300/20 group-hover:bg-rose-300/[0.04] md:rounded-r-none md:border-r-0">
+        <div className="flex items-start gap-3">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-rose-300/15 bg-rose-300/[0.07] text-rose-300">
+            <Icon name="x" size={14} />
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-slate-200">{item.problem}</p>
+            <p className="mt-1.5 text-xs leading-5 text-muted">
+              {item.problemDetail}
+            </p>
+          </div>
+        </div>
+        <span className="absolute right-4 top-4 font-mono text-[10px] tracking-[0.18em] text-white/15">
           0{index + 1}
         </span>
       </div>
 
-      <h3 className="mt-7 text-[17px] font-semibold tracking-[-0.02em] text-white">
-        {feature.title}
-      </h3>
-      <p className="mt-3 min-h-[72px] text-sm leading-6 text-muted">
-        {feature.description}
-      </p>
-
-      <div className="mt-4 border-t border-white/[0.07] pt-4">
-        <FeatureVisual type={feature.visual} />
+      <div className="relative hidden w-12 items-center justify-center md:flex">
+        <span className="absolute h-px w-full bg-gradient-to-r from-rose-300/20 via-white/20 to-emerald-300/30" />
+        <span className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-slate-950 text-xs text-muted transition-all duration-300 group-hover:border-brand/40 group-hover:text-white">
+          →
+        </span>
       </div>
 
-      <div
-        className={`mt-2 flex items-center gap-1.5 text-xs font-medium ${feature.accent}`}
-      >
-        {feature.label}
-        <Icon
-          name="arrow-up-right"
-          size={13}
-          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-        />
+      <div className="relative overflow-hidden rounded-2xl border border-brand/20 bg-gradient-to-br from-brand/[0.12] to-accent/[0.05] p-5 shadow-lg shadow-brand/[0.04] transition-all duration-300 group-hover:border-emerald-300/30 group-hover:shadow-emerald-500/[0.06] md:rounded-l-none md:border-l-0">
+        <div className="flex items-start gap-3">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-300/20 bg-emerald-300/10 text-emerald-300 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+            <Icon name={item.icon} size={15} />
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-white">{item.solution}</p>
+            <p className="mt-1.5 text-xs leading-5 text-slate-300">
+              {item.solutionDetail}
+            </p>
+          </div>
+        </div>
       </div>
-    </article>
+    </div>
   );
 }
 
@@ -176,29 +102,75 @@ export default function Features() {
       className="relative mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:py-32"
       id="projects"
     >
-      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-72 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-brand/[0.06] blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-24 -z-10 h-80 w-[min(90%,800px)] -translate-x-1/2 rounded-full bg-brand/[0.07] blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 top-1/2 -z-10 h-72 w-72 rounded-full bg-accent/[0.06] blur-[120px]" />
 
-      <div className="mb-12 max-w-2xl">
-        <div className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+      <div className="mx-auto mb-14 max-w-3xl text-center">
+        <div className="mb-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
           <span className="h-px w-6 bg-brand" />
-          Everything in one place
+          A clearer way forward
+          <span className="h-px w-6 bg-brand" />
         </div>
-        <h2 className="text-3xl font-semibold tracking-[-0.045em] text-white sm:text-4xl lg:text-[42px]">
-          Your career, with a little more{" "}
-          <span className="bg-gradient-to-r from-violet-300 to-cyan-300 bg-clip-text text-transparent">
-            clarity.
+        <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.055em] text-white sm:text-5xl lg:text-[56px]">
+          The Problem Isn&apos;t Motivation.
+          <span className="mt-2 block bg-gradient-to-r from-violet-300 via-brand to-cyan-300 bg-clip-text text-transparent">
+            It&apos;s Direction.
           </span>
         </h2>
-        <p className="mt-4 max-w-xl text-base leading-7 text-muted">
-          The tools you need to make consistent progress — not another tab to
-          keep open.
+        <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg">
+          Most students do not need more content. They need a system that
+          turns effort into a future they can see.
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {features.map((feature, index) => (
-          <FeatureCard feature={feature} index={index} key={feature.title} />
+      <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:gap-0">
+        <div className="rounded-t-2xl border border-white/[0.08] bg-slate-950/60 p-5 md:rounded-t-none md:rounded-tl-2xl md:rounded-bl-2xl md:border-r-0">
+          <div className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-rose-300/20 bg-rose-300/10 text-rose-300">
+              <Icon name="x" size={16} />
+            </span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-rose-200">
+                Why students fail
+              </p>
+              <p className="mt-1 text-[11px] text-muted">The loop that keeps them stuck</p>
+            </div>
+          </div>
+        </div>
+        <div className="hidden w-12 items-center justify-center border-y border-white/[0.08] bg-slate-950/60 md:flex">
+          <span className="text-xs text-slate-600">VS</span>
+        </div>
+        <div className="rounded-b-2xl border border-brand/20 bg-gradient-to-br from-brand/[0.12] to-accent/[0.05] p-5 md:rounded-b-none md:rounded-tr-2xl md:rounded-br-2xl md:border-l-0">
+          <div className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-300/20 bg-emerald-300/10 text-emerald-300">
+              <Icon name="sparkles" size={16} />
+            </span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-200">
+                How SkillBridge AI solves it
+              </p>
+              <p className="mt-1 text-[11px] text-slate-300">A system built for momentum</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-3 space-y-3">
+        {comparisons.map((item, index) => (
+          <ComparisonRow index={index} item={item} key={item.problem} />
         ))}
+      </div>
+
+      <div className="mt-10 flex flex-col items-center justify-center gap-2 text-center">
+        <div className="flex items-center gap-2 text-xs font-medium text-cyan-200">
+          <span className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
+          From confusion to clarity
+          <span className="h-px w-8 bg-gradient-to-l from-transparent to-accent" />
+        </div>
+        <p className="text-xs leading-5 text-muted">
+          SkillBridge AI turns the scattered parts of learning into one
+          focused career journey.
+        </p>
       </div>
     </section>
   );
