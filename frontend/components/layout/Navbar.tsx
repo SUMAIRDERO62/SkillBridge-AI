@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Icon } from "../ui/Icons";
 
 const navigation = [
-  { label: "Roadmaps", href: "#roadmaps" },
-  { label: "Projects", href: "#projects" },
-  { label: "Resources", href: "#resources" },
-  { label: "Progress", href: "#progress" },
-  { label: "About", href: "#about" },
+  { id: "home", label: "Home", href: "/" },
+  { id: "careers", label: "Careers", href: "/careers" },
+  { id: "progress", label: "Progress", href: "/progress" },
+  { id: "roadmaps", label: "Roadmaps", href: "/#roadmaps" },
+  { id: "journey", label: "Journey", href: "/#journey" },
+  { id: "about", label: "About", href: "/#about" },
 ];
 
 export default function Navbar() {
@@ -23,9 +25,9 @@ export default function Navbar() {
         className="mx-auto max-w-7xl rounded-2xl border border-white/[0.09] bg-slate-950/70 shadow-2xl shadow-black/10 backdrop-blur-xl"
       >
         <div className="flex h-[68px] items-center justify-between px-4 sm:px-6">
-          <a
+          <Link
             className="group flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-            href="#"
+            href="/"
             aria-label="SkillBridge AI home"
             onClick={closeMenu}
           >
@@ -36,24 +38,24 @@ export default function Navbar() {
             <span className="text-[17px] font-semibold tracking-[-0.025em] text-white">
               SkillBridge <span className="text-brand">AI</span>
             </span>
-          </a>
+          </Link>
 
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
             {navigation.map((item) => (
-              <a
-                key={item.href}
+              <Link
+                key={`${item.id}-desktop`}
                 className="relative rounded-lg px-3 py-2 text-[13px] font-medium text-muted transition-colors hover:bg-white/[0.05] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                 href={item.href}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <a
+            <Link
               className="group inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-white/[0.05] transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-white hover:shadow-brand/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-              href="#get-started"
+              href="/#get-started"
             >
               Start Learning
               <Icon
@@ -61,7 +63,7 @@ export default function Navbar() {
                 name="arrow-up-right"
                 size={16}
               />
-            </a>
+            </Link>
           </div>
 
           <button
@@ -86,27 +88,27 @@ export default function Navbar() {
           <div className="border-t border-white/[0.08] px-4 pb-4 pt-3">
             <div className="grid gap-1">
               {navigation.map((item) => (
-                <a
-                  key={item.href}
+                <Link
+                  key={`${item.id}-mobile`}
                   className="rounded-xl px-3 py-3 text-sm font-medium text-muted transition-colors hover:bg-white/[0.05] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                   href={item.href}
                   tabIndex={isOpen ? 0 : -1}
                   onClick={closeMenu}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
 
-            <a
+            <Link
               className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand to-violet-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition-all hover:from-violet-500 hover:to-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-              href="#get-started"
+              href="/careers"
               tabIndex={isOpen ? 0 : -1}
               onClick={closeMenu}
             >
               Start Learning
               <Icon name="arrow-up-right" size={16} />
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

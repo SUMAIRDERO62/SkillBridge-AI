@@ -110,11 +110,11 @@ export default function WhySkillBridge() {
   return (
     <section
       className="relative mx-auto max-w-4xl overflow-hidden px-5 py-24 sm:px-8 lg:py-32"
-      id="about"
+      id="journey"
     >
       <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-80 w-[min(90%,620px)] -translate-x-1/2 rounded-full bg-brand/[0.08] blur-[120px]" />
 
-      <div className="mx-auto mb-14 max-w-2xl text-center">
+      <div className="mx-auto mb-14 max-w-2xl text-center" id="about">
         <div className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
           <span className="h-px w-6 bg-brand" />
           Your path forward

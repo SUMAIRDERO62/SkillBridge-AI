@@ -1,4 +1,5 @@
 import { Icon } from "../ui/Icons";
+import Link from "next/link";
 
 type FooterLink = {
   label: string;
@@ -11,23 +12,23 @@ const linkGroups: { title: string; links: FooterLink[] }[] = [
     title: "Platform",
     links: [
       { label: "Careers", href: "/careers" },
-      { label: "Roadmaps", href: "#roadmaps" },
+      { label: "Roadmaps", href: "/#roadmaps" },
       { label: "Progress", href: "/progress" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Learning Hub", href: "#resources" },
-      { label: "Projects", href: "#projects" },
-      { label: "Documentation", href: "#resources" },
+      { label: "Learning Hub", href: "/#projects" },
+      { label: "Projects", href: "/#projects" },
+      { label: "Documentation", href: "/#projects" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "Vision", href: "#about" },
-      { label: "About", href: "#about" },
+      { label: "Vision", href: "/#about" },
+      { label: "About", href: "/#about" },
     ],
   },
 ];
@@ -48,6 +49,7 @@ const founderLinks: FooterLink[] = [
 function FooterLinkItem({ link }: { link: FooterLink }) {
   return (
     <li>
+      {link.external ? (
       <a
         className="group inline-flex items-center gap-1.5 rounded-md text-sm text-muted transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
         href={link.href}
@@ -61,6 +63,19 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
           className="text-brand opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
         />
       </a>
+      ) : (
+      <Link
+        className="group inline-flex items-center gap-1.5 rounded-md text-sm text-muted transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+        href={link.href}
+      >
+        {link.label}
+        <Icon
+          name="arrow-up-right"
+          size={12}
+          className="text-brand opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
+        />
+      </Link>
+      )}
     </li>
   );
 }
@@ -75,9 +90,9 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-5 pb-8 pt-16 sm:px-8 lg:pt-20">
         <div className="grid gap-14 lg:grid-cols-[1.5fr_repeat(4,1fr)] lg:gap-10">
           <div className="max-w-xs">
-            <a
+            <Link
               className="group inline-flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-              href="#"
+              href="/"
               aria-label="SkillBridge AI home"
             >
               <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brand via-violet-500 to-accent text-white shadow-lg shadow-brand/20 transition-transform duration-300 group-hover:scale-105">
@@ -87,7 +102,7 @@ export default function Footer() {
               <span className="text-lg font-semibold tracking-[-0.03em] text-white">
                 SkillBridge <span className="text-brand">AI</span>
               </span>
-            </a>
+            </Link>
 
             <p className="mt-5 text-sm leading-6 text-muted">
               Career Command Center for Students
@@ -108,7 +123,10 @@ export default function Footer() {
               </h2>
               <ul className="mt-5 space-y-3">
                 {group.links.map((link) => (
-                  <FooterLinkItem key={link.label} link={link} />
+                  <FooterLinkItem
+                    key={`${group.title}-${link.label}`}
+                    link={link}
+                  />
                 ))}
               </ul>
             </div>
@@ -120,7 +138,7 @@ export default function Footer() {
             </h2>
             <ul className="mt-5 space-y-3">
               {founderLinks.map((link) => (
-                <FooterLinkItem key={link.label} link={link} />
+                <FooterLinkItem key={`founder-${link.label}`} link={link} />
               ))}
             </ul>
           </div>

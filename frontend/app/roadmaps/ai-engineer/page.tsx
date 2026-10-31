@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Icon } from "../../../../components/ui/Icons";
+import { Icon } from "../../../components/ui/Icons";
 
 export const metadata: Metadata = {
   title: "AI Engineer Roadmap | SkillBridge AI",
