@@ -7,7 +7,7 @@ export async function getProgress(userId: string, careerSlug: string) {
   const roadmap = await findRoadmapByCareer(careerSlug);
   if (!roadmap) return null;
   const items = await findProgress(userId, roadmap.career.id);
-  return calculateProgress(roadmap.career.id, roadmap.steps.length, items);
+  return calculateProgress(roadmap.career.id, roadmap.nodes.length, items);
 }
 
 export const progressService = { get: getProgress, update: saveProgress };

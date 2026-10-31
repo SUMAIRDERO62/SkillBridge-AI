@@ -1,28 +1,21 @@
-import type { CareerDifficulty } from "./career";
-
-export type RoadmapIcon =
-  | "code"
-  | "layers"
-  | "trending-up"
-  | "target"
-  | "brain"
-  | "sparkles"
-  | "rocket"
-  | "briefcase";
-
-export type RoadmapStep = {
+export type RoadmapNode = {
   id: string;
   careerId: string;
   title: string;
   description: string;
-  outcome: string;
-  duration: string;
-  difficulty: CareerDifficulty;
-  icon: RoadmapIcon;
-  position: number;
+  level: number;
+  sortOrder: number;
+  createdAt: string;
+};
+
+export type RoadmapEdge = {
+  id: string;
+  parentNode: string;
+  childNode: string;
 };
 
 export type CareerRoadmap = {
   career: import("./career").Career;
-  steps: RoadmapStep[];
+  nodes: RoadmapNode[];
+  edges: RoadmapEdge[];
 };

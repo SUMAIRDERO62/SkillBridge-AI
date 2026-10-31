@@ -5,9 +5,7 @@ export type Career = {
   slug: string;
   title: string;
   description: string;
-  skills: string[];
-  duration: string;
-  difficulty: CareerDifficulty;
-  futureDemand: string;
-  projects: string;
+  icon: string | null;
+  createdAt: string;
+  updatedAt: string;
 };

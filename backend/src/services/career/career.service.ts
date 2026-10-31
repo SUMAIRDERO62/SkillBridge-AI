@@ -1,6 +1,9 @@
-import { findCareerBySlug, findCareers } from "@/repositories/career.repository";
+import {
+  getAllCareers,
+  getCareerBySlug,
+} from "@/repositories/career.repository";
 
 export const careerService = {
-  list: findCareers,
-  getBySlug: findCareerBySlug,
+  getAllCareers,
+  getCareerBySlug,
 };

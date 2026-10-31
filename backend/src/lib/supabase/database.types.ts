@@ -8,50 +8,56 @@ export type Database = {
           slug: string;
           title: string;
           description: string;
-          skills: string[];
-          duration: string;
-          difficulty: "Beginner" | "Intermediate" | "Advanced";
-          future_demand: string;
-          projects: string;
+          icon: string | null;
+          created_at: string;
+          updated_at: string;
         };
         Insert: {
           id?: string;
           slug: string;
           title: string;
           description: string;
-          skills: string[];
-          duration: string;
-          difficulty: "Beginner" | "Intermediate" | "Advanced";
-          future_demand: string;
-          projects: string;
+          icon?: string | null;
+          created_at?: string;
+          updated_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["careers"]["Insert"]>;
       };
-      roadmap_steps: {
+      roadmap_nodes: {
         Relationships: [];
         Row: {
           id: string;
           career_id: string;
           title: string;
           description: string;
-          outcome: string;
-          duration: string;
-          difficulty: "Beginner" | "Intermediate" | "Advanced";
-          icon: "code" | "layers" | "trending-up" | "target" | "brain" | "sparkles" | "rocket" | "briefcase";
-          position: number;
+          level: number;
+          sort_order: number;
+          created_at: string;
         };
         Insert: {
           id?: string;
           career_id: string;
           title: string;
           description: string;
-          outcome: string;
-          duration: string;
-          difficulty: "Beginner" | "Intermediate" | "Advanced";
-          icon: "code" | "layers" | "trending-up" | "target" | "brain" | "sparkles" | "rocket" | "briefcase";
-          position: number;
+          level?: number;
+          sort_order?: number;
+          created_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["roadmap_steps"]["Insert"]>;
+        Update: Partial<Database["public"]["Tables"]["roadmap_nodes"]["Insert"]>;
+      };
+      roadmap_edges: {
+        Relationships: [];
+        Row: {
+          id: string;
+          parent_node: string;
+          child_node: string;
+        };
+        Insert: {
+          id?: string;
+          parent_node: string;
+          child_node: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["roadmap_edges"]["Insert"]>;
       };
       progress: {
         Relationships: [];
