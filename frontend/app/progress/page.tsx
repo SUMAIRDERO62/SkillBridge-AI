@@ -185,7 +185,7 @@ export default function ProgressPage() {
                   <Icon name={card.icon} size={16} />
                 </span>
               </div>
-              <p className="relative mt-5 truncate text-2xl font-semibold tracking-[-0.04em] text-white">
+              <p className="relative mt-5 break-words text-2xl font-semibold tracking-[-0.04em] text-white">
                 {card.value}
               </p>
               <p className="relative mt-2 text-xs text-muted">{card.detail}</p>
@@ -214,7 +214,7 @@ export default function ProgressPage() {
             </div>
 
             <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/[0.08]">
-              <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-brand to-accent shadow-[0_0_16px_rgba(139,92,246,0.55)]" />
+              <div className="motion-progress h-full w-1/2 rounded-full bg-gradient-to-r from-brand to-accent shadow-[0_0_16px_rgba(139,92,246,0.55)]" />
             </div>
 
             <div className="mt-7 space-y-3">
@@ -239,7 +239,7 @@ export default function ProgressPage() {
                   >
                     <Icon name={item.icon} size={17} />
                   </span>
-                  <span className="min-w-0 flex-1">
+                  <span className="min-w-0 flex-1 break-words">
                     <span
                       className={`block text-sm font-semibold ${
                         item.status === "locked" ? "text-slate-500" : "text-white"
@@ -247,7 +247,7 @@ export default function ProgressPage() {
                     >
                       {item.title}
                     </span>
-                    <span className="mt-1 block text-xs text-muted">
+                    <span className="mt-1 block break-words text-xs text-muted">
                       {item.status === "complete"
                         ? "Completed"
                         : item.status === "current"

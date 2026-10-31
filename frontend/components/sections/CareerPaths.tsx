@@ -16,11 +16,12 @@ const difficultyStyles: Record<Career["difficulty"], string> = {
   Advanced: "border-violet-300/20 bg-violet-300/10 text-violet-200",
 };
 
-function CareerCard({ career }: { career: Career }) {
+function CareerCard({ career, index }: { career: Career; index: number }) {
   const visual = careerVisuals[career.slug as keyof typeof careerVisuals];
   return (
     <article
-      className={`group relative isolate overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br ${visual.color} bg-surface/75 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-white/[0.2] hover:shadow-2xl hover:shadow-black/30 sm:p-6`}
+      className={`motion-card-in group relative isolate overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br ${visual.color} bg-surface/75 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-white/[0.2] hover:shadow-2xl hover:shadow-black/30 sm:p-6`}
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       <div
         className={`pointer-events-none absolute -right-20 -top-20 -z-10 h-48 w-48 rounded-full ${visual.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
@@ -67,18 +68,18 @@ function CareerCard({ career }: { career: Career }) {
         ))}
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3 border-t border-white/[0.08] pt-4">
-        <div>
+      <div className="mt-5 grid min-w-0 grid-cols-2 gap-3 border-t border-white/[0.08] pt-4">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase tracking-[0.14em] text-slate-500">
             Portfolio projects
           </p>
-          <p className="mt-1 text-sm font-semibold text-white">{career.projects}</p>
+          <p className="mt-1 break-words text-sm font-semibold text-white">{career.projects}</p>
         </div>
-        <div className="border-l border-white/[0.08] pl-3">
+        <div className="min-w-0 border-l border-white/[0.08] pl-3">
           <p className="text-[10px] uppercase tracking-[0.14em] text-slate-500">
             Future growth
           </p>
-          <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-emerald-300">
+          <p className="mt-1 flex flex-wrap items-center gap-1.5 break-words text-sm font-semibold text-emerald-300">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
             {career.futureDemand}
           </p>
@@ -115,8 +116,8 @@ export default function CareerPaths() {
         </div>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {careers.map((career) => (
-            <CareerCard career={career} key={career.title} />
+          {careers.map((career, index) => (
+            <CareerCard career={career} index={index} key={career.title} />
           ))}
         </div>
 

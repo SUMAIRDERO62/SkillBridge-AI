@@ -7,8 +7,13 @@ export default function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[680px] bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.16),transparent_58%)]" />
-      <div className="pointer-events-none absolute left-[-10%] top-40 -z-10 h-80 w-80 rounded-full bg-brand/10 blur-[120px]" />
-      <div className="pointer-events-none absolute right-[-8%] top-72 -z-10 h-96 w-96 rounded-full bg-accent/10 blur-[130px]" />
+      <div className="motion-float pointer-events-none absolute left-[-10%] top-40 -z-10 h-80 w-80 rounded-full bg-brand/10 blur-[120px]" />
+      <div className="motion-float-slow pointer-events-none absolute right-[-8%] top-72 -z-10 h-96 w-96 rounded-full bg-accent/10 blur-[130px]" />
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <span className="motion-particle absolute left-[18%] top-44 h-1 w-1 rounded-full bg-violet-300" />
+        <span className="motion-particle absolute right-[22%] top-56 h-1.5 w-1.5 rounded-full bg-cyan-300 [animation-delay:900ms]" />
+        <span className="motion-particle absolute right-[12%] top-36 h-1 w-1 rounded-full bg-white [animation-delay:1.6s]" />
+      </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.8)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:linear-gradient(to_bottom,black,transparent_72%)]" />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pb-24 pt-20 sm:px-8 lg:grid-cols-[0.94fr_1.06fr] lg:gap-12 lg:pb-32 lg:pt-28">
@@ -57,7 +62,7 @@ export default function Hero() {
 
         <div className="relative mx-auto w-full max-w-[570px] lg:ml-auto">
           <div className="absolute -inset-8 rounded-[36px] bg-gradient-to-br from-brand/25 via-transparent to-accent/20 blur-3xl" />
-          <div className="relative rounded-[22px] border border-white/10 bg-slate-950/75 p-1.5 shadow-2xl shadow-black/40 backdrop-blur-2xl">
+          <div className="motion-dashboard relative min-w-0 rounded-[22px] border border-white/10 bg-slate-950/75 p-1.5 shadow-2xl shadow-black/40 backdrop-blur-2xl">
             <div className="overflow-hidden rounded-[16px] border border-white/[0.08] bg-slate-900/90">
             <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4 sm:px-6">
               <div className="flex items-center gap-2.5">
@@ -73,15 +78,15 @@ export default function Hero() {
             </div>
             <div className="grid gap-3 p-4 sm:p-5">
               <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
-                <div className="flex items-center justify-between">
-                  <div>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
                     <p className="text-[11px] text-muted">Current focus</p>
-                    <p className="mt-1 text-sm font-semibold text-white">Machine Learning Foundations</p>
+                    <p className="mt-1 break-words text-sm font-semibold text-white">Machine Learning Foundations</p>
                   </div>
-                  <span className="text-sm font-bold text-brand">68%</span>
+                  <span className="shrink-0 text-sm font-bold text-brand">68%</span>
                 </div>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-700"><div className="h-full w-[68%] rounded-full bg-gradient-to-r from-brand to-accent" /></div>
-                <div className="mt-2 flex justify-between text-[10px] text-muted"><span>12 of 18 lessons complete</span><span>3 day streak</span></div>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-700"><div className="motion-progress h-full w-[68%] rounded-full bg-gradient-to-r from-brand to-accent" /></div>
+                <div className="mt-2 flex flex-wrap justify-between gap-x-3 gap-y-1 text-[10px] text-muted"><span>12 of 18 lessons complete</span><span>3 day streak</span></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
@@ -96,9 +101,9 @@ export default function Hero() {
                 </div>
               </div>
               <div className="rounded-xl border border-brand/20 bg-gradient-to-r from-brand/[0.12] to-cyan-400/[0.06] p-4">
-                <div className="flex gap-3">
+                <div className="flex min-w-0 gap-3">
                   <span className="mt-0.5 text-brand"><Icon name="sparkles" size={16} /></span>
-                  <div><p className="text-[11px] font-semibold text-violet-100">Your AI mentor says</p><p className="mt-1 text-[11px] leading-5 text-muted">You&apos;re ready to turn your skills into a portfolio project.</p></div>
+                  <div className="min-w-0"><p className="text-[11px] font-semibold text-violet-100">Your AI mentor says</p><p className="mt-1 break-words text-[11px] leading-5 text-muted">You&apos;re ready to turn your skills into a portfolio project.</p></div>
                 </div>
               </div>
             </div>

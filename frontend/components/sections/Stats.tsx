@@ -46,7 +46,10 @@ const valueCards: ValueCard[] = [
 
 function ValueCard({ card, index }: { card: ValueCard; index: number }) {
   return (
-    <article className="group relative isolate overflow-hidden rounded-2xl border border-white/[0.09] bg-slate-950/60 p-6 shadow-xl shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.18] hover:bg-slate-900/80 hover:shadow-2xl hover:shadow-black/20 sm:p-7">
+    <article
+      className="motion-card-in group relative isolate overflow-hidden rounded-2xl border border-white/[0.09] bg-slate-950/60 p-6 shadow-xl shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.18] hover:bg-slate-900/80 hover:shadow-2xl hover:shadow-black/20 sm:p-7"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
       <div
         className={`pointer-events-none absolute -right-14 -top-14 -z-10 h-40 w-40 rounded-full ${card.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
       />
@@ -72,7 +75,7 @@ function ValueCard({ card, index }: { card: ValueCard; index: number }) {
 
       <div className="relative mt-7 h-px overflow-hidden bg-white/[0.08]">
         <div
-          className={`h-full w-1/4 bg-current transition-all duration-500 group-hover:w-3/4 ${card.accent}`}
+          className={`motion-progress h-full w-1/4 bg-current transition-all duration-500 group-hover:w-3/4 ${card.accent}`}
         />
       </div>
     </article>

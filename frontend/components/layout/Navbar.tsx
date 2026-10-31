@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Icon } from "../ui/Icons";
 
@@ -15,8 +15,25 @@ const navigation = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = () => setIsOpen(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMenu();
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
 
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6">
@@ -40,7 +57,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
             {navigation.map((item) => (
               <Link
                 key={`${item.id}-desktop`}
@@ -52,7 +69,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <Link
               className="group inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-white/[0.05] transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-white hover:shadow-brand/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
               href="/#get-started"
@@ -67,10 +84,11 @@ export default function Navbar() {
           </div>
 
           <button
+            ref={menuButtonRef}
             aria-controls="mobile-navigation"
             aria-expanded={isOpen}
             aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-200 transition-colors hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand md:hidden"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-200 transition-colors hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand lg:hidden"
             onClick={() => setIsOpen((open) => !open)}
             type="button"
           >
@@ -79,7 +97,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out md:hidden ${
+          className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
             isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
           id="mobile-navigation"

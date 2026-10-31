@@ -54,7 +54,7 @@ export default function Cta() {
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-xl shadow-brand/10 transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-white hover:shadow-brand/30 sm:w-auto"
+              className="motion-cta-pulse group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-xl shadow-brand/10 transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-white hover:shadow-brand/30 sm:w-auto"
               href="#roadmaps"
             >
               Start Your Career Journey
