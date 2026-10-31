@@ -1,4 +1,7 @@
 import { Icon } from "../ui/Icons";
+import { getCareerBySlug } from "../../lib/careers";
+
+const featuredCareer = getCareerBySlug("ai-engineer");
 
 export default function Hero() {
   return (
@@ -61,7 +64,9 @@ export default function Hero() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand/15 text-brand"><Icon name="compass" size={17} /></span>
                 <div>
                   <p className="text-xs font-semibold text-white">Your command center</p>
-                  <p className="text-[10px] text-muted">AI Engineer path</p>
+                  <p className="text-[10px] text-muted">
+                    {featuredCareer?.title} path
+                  </p>
                 </div>
               </div>
               <span className="flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1 text-[10px] font-medium text-emerald-300"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> On track</span>

@@ -1,85 +1,14 @@
 import { Icon } from "../ui/Icons";
+import { careers, type Career } from "../../lib/careers";
 
-type Career = {
-  title: string;
-  difficulty: "Beginner" | "Intermediate" | "Advanced";
-  duration: string;
-  skills: string[];
-  projects: string;
-  growth: string;
-  icon: "brain" | "trending-up" | "code" | "target" | "layers" | "rocket";
-  color: string;
-  glow: string;
-};
-
-const careers: Career[] = [
-  {
-    title: "AI Engineer",
-    difficulty: "Advanced",
-    duration: "6–9 Months",
-    skills: ["Python", "Machine Learning", "Deep Learning", "LLMs"],
-    projects: "12+",
-    growth: "High Demand",
-    icon: "brain",
-    color: "from-violet-500/20 via-violet-500/[0.04] to-transparent",
-    glow: "bg-violet-500/20",
-  },
-  {
-    title: "Data Scientist",
-    difficulty: "Intermediate",
-    duration: "5–8 Months",
-    skills: ["Python", "SQL", "Statistics", "Visualization"],
-    projects: "10+",
-    growth: "High Demand",
-    icon: "trending-up",
-    color: "from-cyan-500/20 via-cyan-500/[0.04] to-transparent",
-    glow: "bg-cyan-500/20",
-  },
-  {
-    title: "Web Developer",
-    difficulty: "Beginner",
-    duration: "4–6 Months",
-    skills: ["React", "Next.js", "TypeScript", "APIs"],
-    projects: "8+",
-    growth: "Strong Growth",
-    icon: "code",
-    color: "from-amber-500/20 via-amber-500/[0.04] to-transparent",
-    glow: "bg-amber-500/20",
-  },
-  {
-    title: "Cyber Security",
-    difficulty: "Intermediate",
-    duration: "5–8 Months",
-    skills: ["Networks", "Linux", "Ethical Hacking", "SOC"],
-    projects: "9+",
-    growth: "High Demand",
-    icon: "target",
-    color: "from-emerald-500/20 via-emerald-500/[0.04] to-transparent",
-    glow: "bg-emerald-500/20",
-  },
-  {
-    title: "DevOps Engineer",
-    difficulty: "Advanced",
-    duration: "6–10 Months",
-    skills: ["Cloud", "Docker", "Kubernetes", "CI/CD"],
-    projects: "11+",
-    growth: "Very High Demand",
-    icon: "layers",
-    color: "from-rose-500/20 via-rose-500/[0.04] to-transparent",
-    glow: "bg-rose-500/20",
-  },
-  {
-    title: "Mobile Developer",
-    difficulty: "Intermediate",
-    duration: "4–7 Months",
-    skills: ["React Native", "Mobile UX", "TypeScript", "APIs"],
-    projects: "8+",
-    growth: "Strong Growth",
-    icon: "rocket",
-    color: "from-blue-500/20 via-blue-500/[0.04] to-transparent",
-    glow: "bg-blue-500/20",
-  },
-];
+const careerVisuals = {
+  "ai-engineer": { icon: "brain", color: "from-violet-500/20 via-violet-500/[0.04] to-transparent", glow: "bg-violet-500/20" },
+  "data-scientist": { icon: "trending-up", color: "from-cyan-500/20 via-cyan-500/[0.04] to-transparent", glow: "bg-cyan-500/20" },
+  "web-developer": { icon: "code", color: "from-amber-500/20 via-amber-500/[0.04] to-transparent", glow: "bg-amber-500/20" },
+  "cyber-security": { icon: "target", color: "from-emerald-500/20 via-emerald-500/[0.04] to-transparent", glow: "bg-emerald-500/20" },
+  "devops-engineer": { icon: "layers", color: "from-rose-500/20 via-rose-500/[0.04] to-transparent", glow: "bg-rose-500/20" },
+  "mobile-developer": { icon: "rocket", color: "from-blue-500/20 via-blue-500/[0.04] to-transparent", glow: "bg-blue-500/20" },
+} as const;
 
 const difficultyStyles: Record<Career["difficulty"], string> = {
   Beginner: "border-emerald-300/20 bg-emerald-300/10 text-emerald-200",
@@ -88,18 +17,19 @@ const difficultyStyles: Record<Career["difficulty"], string> = {
 };
 
 function CareerCard({ career }: { career: Career }) {
+  const visual = careerVisuals[career.slug as keyof typeof careerVisuals];
   return (
     <article
-      className={`group relative isolate overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br ${career.color} bg-surface/75 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-white/[0.2] hover:shadow-2xl hover:shadow-black/30 sm:p-6`}
+      className={`group relative isolate overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br ${visual.color} bg-surface/75 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-white/[0.2] hover:shadow-2xl hover:shadow-black/30 sm:p-6`}
     >
       <div
-        className={`pointer-events-none absolute -right-20 -top-20 -z-10 h-48 w-48 rounded-full ${career.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
+        className={`pointer-events-none absolute -right-20 -top-20 -z-10 h-48 w-48 rounded-full ${visual.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
       />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(120deg,transparent_25%,rgba(255,255,255,0.06)_45%,transparent_65%)] opacity-0 transition-all duration-700 group-hover:translate-x-1/2 group-hover:opacity-100" />
 
       <div className="flex items-start justify-between gap-4">
         <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-white shadow-inner transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3">
-          <Icon name={career.icon} size={20} />
+          <Icon name={visual.icon} size={20} />
         </span>
         <span
           className={`rounded-full border px-2.5 py-1 text-[10px] font-medium ${difficultyStyles[career.difficulty]}`}
@@ -150,7 +80,7 @@ function CareerCard({ career }: { career: Career }) {
           </p>
           <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-emerald-300">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            {career.growth}
+            {career.futureDemand}
           </p>
         </div>
       </div>

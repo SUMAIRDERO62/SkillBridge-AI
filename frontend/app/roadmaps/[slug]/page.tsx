@@ -2,44 +2,39 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icon } from "../../../components/ui/Icons";
-
-const roadmapTitles: Record<string, string> = {
-  "data-scientist": "Data Scientist",
-  "web-developer": "Web Developer",
-  "cyber-security": "Cyber Security",
-  "devops-engineer": "DevOps Engineer",
-  "mobile-developer": "Mobile Developer",
-};
+import { careers, getCareerBySlug } from "../../../lib/careers";
 
 type RoadmapPageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return Object.keys(roadmapTitles).map((slug) => ({ slug }));
+  return careers
+    .filter((career) => career.slug !== "ai-engineer")
+    .map((career) => ({ slug: career.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: RoadmapPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const title = roadmapTitles[slug];
+  const career = getCareerBySlug(slug);
 
-  if (!title) {
+  if (!career) {
     return {};
   }
 
   return {
-    title: `${title} Roadmap | SkillBridge AI`,
-    description: `Follow the ${title} career path with SkillBridge AI.`,
+    title: `${career.title} Roadmap | SkillBridge AI`,
+    description: `Follow the ${career.title} career path with SkillBridge AI.`,
   };
 }
 
 export default async function RoadmapPage({ params }: RoadmapPageProps) {
   const { slug } = await params;
-  const title = roadmapTitles[slug];
+  const career = getCareerBySlug(slug);
 
-  if (!title) {
+  if (!career) {
     notFound();
   }
 
@@ -65,7 +60,7 @@ export default async function RoadmapPage({ params }: RoadmapPageProps) {
             Career roadmap
           </p>
           <h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl">
-            {title} Roadmap
+            {career.title} Roadmap
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-muted">
             This roadmap is being prepared for the SkillBridge AI Career

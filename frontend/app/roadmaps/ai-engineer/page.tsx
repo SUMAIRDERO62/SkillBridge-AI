@@ -1,135 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "../../../components/ui/Icons";
+import { getCareerBySlug } from "../../../lib/careers";
+import {
+  aiEngineerRoadmap,
+  type RoadmapStep,
+} from "../../../lib/roadmaps";
+
+const career = getCareerBySlug("ai-engineer");
 
 export const metadata: Metadata = {
-  title: "AI Engineer Roadmap | SkillBridge AI",
+  title: `${career?.title ?? "AI Engineer"} Roadmap | SkillBridge AI`,
   description:
-    "A focused AI Engineer career path from Python foundations to internship readiness.",
+    `A focused ${career?.title ?? "AI Engineer"} career path from Python foundations to internship readiness.`,
 };
 
-type Step = {
-  title: string;
-  description: string;
-  outcome: string;
-  duration: string;
-  difficulty: "Beginner" | "Intermediate" | "Advanced";
-  icon:
-    | "code"
-    | "layers"
-    | "trending-up"
-    | "brain"
-    | "rocket"
-    | "briefcase"
-    | "target"
-    | "sparkles";
+type Step = RoadmapStep & {
   status: "complete" | "current" | "upcoming";
 };
 
-const steps: Step[] = [
-  {
-    title: "Python Fundamentals",
-    description:
-      "Learn syntax, functions, data structures, OOP, and clean coding habits.",
-    outcome: "Write and organize reliable Python programs.",
-    duration: "3 weeks",
-    difficulty: "Beginner",
-    icon: "code",
-    status: "complete",
-  },
-  {
-    title: "NumPy",
-    description:
-      "Work with arrays, vectorized operations, linear algebra, and numerical data.",
-    outcome: "Build fast numerical workflows for AI experiments.",
-    duration: "1–2 weeks",
-    difficulty: "Beginner",
-    icon: "layers",
-    status: "complete",
-  },
-  {
-    title: "Pandas",
-    description:
-      "Clean, join, group, and explore real-world datasets with DataFrames.",
-    outcome: "Turn messy data into useful decisions.",
-    duration: "2 weeks",
-    difficulty: "Beginner",
-    icon: "trending-up",
-    status: "current",
-  },
-  {
-    title: "Data Visualization",
-    description:
-      "Explain patterns with clear charts, dashboards, and visual narratives.",
-    outcome: "Communicate insights people can act on.",
-    duration: "1–2 weeks",
-    difficulty: "Beginner",
-    icon: "trending-up",
-    status: "upcoming",
-  },
-  {
-    title: "Machine Learning",
-    description:
-      "Learn feature engineering, supervised learning, evaluation, and experimentation.",
-    outcome: "Train and evaluate useful predictive models.",
-    duration: "6 weeks",
-    difficulty: "Intermediate",
-    icon: "target",
-    status: "upcoming",
-  },
-  {
-    title: "Deep Learning",
-    description:
-      "Understand neural networks, optimization, computer vision, and sequence models.",
-    outcome: "Build and explain neural network solutions.",
-    duration: "6–8 weeks",
-    difficulty: "Advanced",
-    icon: "brain",
-    status: "upcoming",
-  },
-  {
-    title: "LLMs",
-    description:
-      "Ship useful applications with prompting, embeddings, RAG, and evaluation.",
-    outcome: "Create responsible AI experiences with language models.",
-    duration: "4–6 weeks",
-    difficulty: "Advanced",
-    icon: "sparkles",
-    status: "upcoming",
-  },
-  {
-    title: "AI Projects",
-    description:
-      "Build practical AI products that solve real problems from start to finish.",
-    outcome: "Have proof of skill beyond course certificates.",
-    duration: "4–6 weeks",
-    difficulty: "Advanced",
-    icon: "rocket",
-    status: "upcoming",
-  },
-  {
-    title: "Portfolio Building",
-    description:
-      "Package your strongest projects with demos, case studies, and technical decisions.",
-    outcome: "Show employers how you think and build.",
-    duration: "2–3 weeks",
-    difficulty: "Intermediate",
-    icon: "layers",
-    status: "upcoming",
-  },
-  {
-    title: "Internship Preparation",
-    description:
-      "Practice interviews, improve your resume, and prepare confident project stories.",
-    outcome: "Apply with a portfolio and a clear point of view.",
-    duration: "2–4 weeks",
-    difficulty: "Intermediate",
-    icon: "briefcase",
-    status: "upcoming",
-  },
-];
+const completedStepIds = new Set(["python", "numpy", "pandas"]);
+const currentStepId = "machine-learning";
 
-const difficultyStyles: Record<Step["difficulty"], string> = {
+const steps: Step[] = aiEngineerRoadmap.map((step) => ({
+  ...step,
+  status: completedStepIds.has(step.id)
+    ? "complete"
+    : step.id === currentStepId
+      ? "current"
+      : "upcoming",
+}));
+
+const difficultyStyles: Record<RoadmapStep["difficulty"], string> = {
   Beginner: "border-emerald-300/20 bg-emerald-400/10 text-emerald-200",
   Intermediate: "border-cyan-300/20 bg-cyan-400/10 text-cyan-200",
   Advanced: "border-violet-300/20 bg-violet-400/10 text-violet-200",
@@ -251,7 +153,7 @@ export default function AIEngineerRoadmapPage() {
             Your path from learning to earning
           </div>
           <h1 className="text-5xl font-semibold leading-[1.03] tracking-[-0.06em] text-white sm:text-6xl lg:text-[68px]">
-            AI Engineer{" "}
+            {career?.title ?? "AI Engineer"}{" "}
             <span className="bg-gradient-to-r from-violet-300 via-brand to-cyan-300 bg-clip-text text-transparent">
               Roadmap
             </span>
@@ -297,7 +199,7 @@ export default function AIEngineerRoadmapPage() {
                 Recommended next step
               </div>
               <h2 className="mt-4 text-xl font-semibold tracking-[-0.03em] text-white">
-                Complete Pandas
+                Complete Machine Learning
               </h2>
               <p className="mt-2 text-sm leading-6 text-muted">
                 Turn raw datasets into decisions. This is the bridge between

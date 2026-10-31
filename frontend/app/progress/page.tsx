@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "../../components/ui/Icons";
+import { getCareerBySlug } from "../../lib/careers";
+import { aiEngineerRoadmap } from "../../lib/roadmaps";
+
+const currentCareer = getCareerBySlug("ai-engineer");
 
 export const metadata: Metadata = {
   title: "Learning Progress | SkillBridge AI",
@@ -8,20 +12,21 @@ export const metadata: Metadata = {
     "Track your skills, projects, milestones, and momentum in the SkillBridge AI command center.",
 };
 
-type RoadmapItem = {
-  title: string;
+type RoadmapItem = (typeof aiEngineerRoadmap)[number] & {
   status: "complete" | "current" | "locked";
-  icon: "code" | "layers" | "trending-up" | "target" | "brain" | "sparkles";
 };
 
-const roadmapItems: RoadmapItem[] = [
-  { title: "Python", status: "complete", icon: "code" },
-  { title: "NumPy", status: "complete", icon: "layers" },
-  { title: "Pandas", status: "complete", icon: "trending-up" },
-  { title: "Machine Learning", status: "current", icon: "target" },
-  { title: "Deep Learning", status: "locked", icon: "brain" },
-  { title: "LLMs", status: "locked", icon: "sparkles" },
-];
+const completedStepIds = new Set(["python", "numpy", "pandas"]);
+const currentStepId = "machine-learning";
+
+const roadmapItems: RoadmapItem[] = aiEngineerRoadmap.map((step) => ({
+  ...step,
+  status: completedStepIds.has(step.id)
+    ? "complete"
+    : step.id === currentStepId
+      ? "current"
+      : "locked",
+}));
 
 const achievements = [
   {
@@ -58,7 +63,7 @@ const overviewCards = [
   },
   {
     label: "Current career path",
-    value: "AI Engineer",
+    value: currentCareer?.title ?? "Choose a career",
     detail: "Foundations → production AI",
     icon: "brain" as const,
     accent: "text-violet-300",
@@ -202,7 +207,7 @@ export default function ProgressPage() {
                   id="roadmap-progress-title"
                   className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl"
                 >
-                  AI Engineer foundations
+                  {currentCareer?.title} foundations
                 </h2>
               </div>
               <span className="text-xs font-medium text-muted">50% complete</span>

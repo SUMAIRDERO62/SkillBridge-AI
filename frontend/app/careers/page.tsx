@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "../../components/ui/Icons";
+import { careers, type Career } from "../../lib/careers";
 
 export const metadata: Metadata = {
   title: "Choose Your Future | SkillBridge AI",
@@ -8,114 +9,44 @@ export const metadata: Metadata = {
     "Choose a career direction and follow a focused path from learning to earning.",
 };
 
-type Career = {
-  slug: string;
-  title: string;
-  mission: string;
-  difficulty: "Beginner" | "Intermediate" | "Advanced";
-  duration: string;
-  skills: string[];
-  projects: string;
-  demand: string;
-  salary: string;
-  icon: "brain" | "trending-up" | "code" | "target" | "layers" | "rocket";
-  gradient: string;
-  glow: string;
-  accent: string;
-};
-
-const careers: Career[] = [
-  {
-    slug: "ai-engineer",
-    title: "AI Engineer",
-    mission: "Build intelligent products that make the future feel useful.",
-    difficulty: "Advanced",
-    duration: "6–9 months",
-    skills: ["Python", "ML", "Deep Learning", "LLMs"],
-    projects: "12+ projects",
-    demand: "Very high",
-    salary: "Salary potential: Placeholder",
+const careerVisuals = {
+  "ai-engineer": {
     icon: "brain",
     gradient: "from-violet-500/25 via-violet-500/[0.06] to-transparent",
     glow: "bg-violet-500/25",
     accent: "text-violet-300",
   },
-  {
-    slug: "data-scientist",
-    title: "Data Scientist",
-    mission: "Turn complex data into decisions people can act on.",
-    difficulty: "Intermediate",
-    duration: "5–8 months",
-    skills: ["Python", "SQL", "Statistics", "Visualization"],
-    projects: "10+ projects",
-    demand: "Very high",
-    salary: "Salary potential: Placeholder",
+  "data-scientist": {
     icon: "trending-up",
     gradient: "from-cyan-500/25 via-cyan-500/[0.06] to-transparent",
     glow: "bg-cyan-500/25",
     accent: "text-cyan-300",
   },
-  {
-    slug: "web-developer",
-    title: "Web Developer",
-    mission: "Shape digital experiences that people return to every day.",
-    difficulty: "Beginner",
-    duration: "4–6 months",
-    skills: ["React", "Next.js", "TypeScript", "APIs"],
-    projects: "8+ projects",
-    demand: "High",
-    salary: "Salary potential: Placeholder",
+  "web-developer": {
     icon: "code",
     gradient: "from-amber-500/25 via-amber-500/[0.06] to-transparent",
     glow: "bg-amber-500/20",
     accent: "text-amber-300",
   },
-  {
-    slug: "cyber-security",
-    title: "Cyber Security",
-    mission: "Protect the systems, people, and ideas the world depends on.",
-    difficulty: "Intermediate",
-    duration: "5–8 months",
-    skills: ["Networks", "Linux", "Ethical Hacking", "SOC"],
-    projects: "9+ projects",
-    demand: "Very high",
-    salary: "Salary potential: Placeholder",
+  "cyber-security": {
     icon: "target",
     gradient: "from-emerald-500/25 via-emerald-500/[0.06] to-transparent",
     glow: "bg-emerald-500/20",
     accent: "text-emerald-300",
   },
-  {
-    slug: "devops-engineer",
-    title: "DevOps Engineer",
-    mission: "Make ambitious software reliable, scalable, and ready to ship.",
-    difficulty: "Advanced",
-    duration: "6–10 months",
-    skills: ["Cloud", "Docker", "Kubernetes", "CI/CD"],
-    projects: "11+ projects",
-    demand: "Very high",
-    salary: "Salary potential: Placeholder",
+  "devops-engineer": {
     icon: "layers",
     gradient: "from-rose-500/25 via-rose-500/[0.06] to-transparent",
     glow: "bg-rose-500/20",
     accent: "text-rose-300",
   },
-  {
-    slug: "mobile-developer",
-    title: "Mobile Developer",
-    mission: "Create thoughtful experiences that move with people everywhere.",
-    difficulty: "Intermediate",
-    duration: "4–7 months",
-    skills: ["React Native", "Mobile UX", "TypeScript", "APIs"],
-    projects: "8+ projects",
-    demand: "High",
-    salary: "Salary potential: Placeholder",
+  "mobile-developer": {
     icon: "rocket",
     gradient: "from-blue-500/25 via-blue-500/[0.06] to-transparent",
     glow: "bg-blue-500/20",
     accent: "text-blue-300",
   },
-];
+} as const;
 
 const difficultyStyles: Record<Career["difficulty"], string> = {
   Beginner: "border-emerald-300/20 bg-emerald-300/10 text-emerald-200",
@@ -124,21 +55,23 @@ const difficultyStyles: Record<Career["difficulty"], string> = {
 };
 
 function CareerCard({ career, index }: { career: Career; index: number }) {
+  const visual = careerVisuals[career.slug as keyof typeof careerVisuals];
+
   return (
     <Link
       href={`/roadmaps/${career.slug}`}
-      className={`group relative isolate flex min-h-[462px] flex-col overflow-hidden rounded-[26px] border border-white/[0.1] bg-gradient-to-br ${career.gradient} bg-surface/65 p-6 shadow-xl shadow-black/10 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-white/[0.24] hover:bg-surface/90 hover:shadow-2xl hover:shadow-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:p-7`}
+      className={`group relative isolate flex min-h-[462px] flex-col overflow-hidden rounded-[26px] border border-white/[0.1] bg-gradient-to-br ${visual.gradient} bg-surface/65 p-6 shadow-xl shadow-black/10 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-white/[0.24] hover:bg-surface/90 hover:shadow-2xl hover:shadow-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:p-7`}
     >
       <div
-        className={`pointer-events-none absolute -right-24 -top-24 -z-10 h-64 w-64 rounded-full ${career.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
+        className={`pointer-events-none absolute -right-24 -top-24 -z-10 h-64 w-64 rounded-full ${visual.glow} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
       />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(120deg,transparent_22%,rgba(255,255,255,0.08)_45%,transparent_68%)] opacity-0 transition-all duration-700 group-hover:translate-x-1/2 group-hover:opacity-100" />
 
       <div className="flex items-start justify-between gap-4">
         <span
-          className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.07] ${career.accent} shadow-inner transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}
+          className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.07] ${visual.accent} shadow-inner transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}
         >
-          <Icon name={career.icon} size={22} />
+          <Icon name={visual.icon} size={22} />
         </span>
         <span className="font-mono text-[10px] tracking-[0.2em] text-white/25">
           0{index + 1}
@@ -157,12 +90,12 @@ function CareerCard({ career, index }: { career: Career; index: number }) {
           </span>
         </div>
         <p className="mt-3 max-w-sm text-sm leading-6 text-slate-300">
-          {career.mission}
+          {career.description}
         </p>
       </div>
 
       <div className="mt-6 flex items-center gap-2 text-xs text-muted">
-        <span className={`h-1.5 w-1.5 rounded-full bg-current ${career.accent}`} />
+        <span className={`h-1.5 w-1.5 rounded-full bg-current ${visual.accent}`} />
         <span>Estimated journey</span>
         <span className="text-slate-600">/</span>
         <span className="font-medium text-slate-200">{career.duration}</span>
@@ -197,14 +130,16 @@ function CareerCard({ career, index }: { career: Career; index: number }) {
           </p>
           <p className="mt-1.5 flex items-center gap-1.5 text-sm font-semibold text-emerald-300">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            {career.demand}
+            {career.futureDemand}
           </p>
         </div>
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-4">
-        <span className="text-[10px] text-slate-500">{career.salary}</span>
-        <span className={`flex items-center gap-1 text-xs font-semibold ${career.accent}`}>
+        <span className="text-[10px] text-slate-500">
+          Salary potential: Placeholder
+        </span>
+        <span className={`flex items-center gap-1 text-xs font-semibold ${visual.accent}`}>
           Explore path
           <Icon
             name="arrow-up-right"

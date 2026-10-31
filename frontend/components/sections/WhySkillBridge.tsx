@@ -1,4 +1,10 @@
 import { Icon } from "../ui/Icons";
+import { careers } from "../../lib/careers";
+
+const featuredCareerNames = careers
+  .slice(0, 4)
+  .map((career) => career.title)
+  .join(", ");
 
 type JourneyStep = {
   step: string;
@@ -14,7 +20,7 @@ const journeySteps: JourneyStep[] = [
     step: "01",
     title: "Choose Your Career",
     description:
-      "Select AI Engineer, Data Scientist, Web Developer, Cyber Security or another career path.",
+      `Select ${featuredCareerNames} or another career path.`,
     icon: "target",
     accent: "text-violet-300",
     iconBackground: "bg-violet-400/10 ring-violet-300/20",
